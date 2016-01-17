@@ -4,7 +4,7 @@ include_directories(include)
 file(GLOB_RECURSE SOURCES "src/*.c")
 file(GLOB_RECURSE HEADERS "include/*.h")
 
-add_library(mylib SHARED ${SOURCES})
+add_library(mylib STATIC ${SOURCES})
 
 set_target_properties(mylib PROPERTIES
     PUBLIC_HEADER "${HEADERS}")
