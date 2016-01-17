@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.0)
-project(mylib)
+project(mylibi C)
 
 set(MYLIB_MAJOR_VERSION 0)
 set(MYLIB_MINOR_VERSION 1)
