@@ -1,5 +1,5 @@
-#ifndef LIST_H
-#define LIST_H
+#ifndef __BCLIB_LIST_H__
+#define __BCLIB_LIST_H__
 
 #include <stdbool.h>
 
