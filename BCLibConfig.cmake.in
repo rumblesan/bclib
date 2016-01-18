@@ -1,0 +1,17 @@
+# - Config file for the BCLib package
+# It defines the following variables
+#  BCLIB_INCLUDE_DIRS - include directories for BCLib
+#  BCLIB_LIBRARIES    - libraries to link against
+#  BCLIB_EXECUTABLE   - the bar executable
+
+# Compute paths
+get_filename_component(BCLIB_CMAKE_DIR "${CMAKE_CURRENT_LIST_FILE}" PATH)
+set(BCLIB_INCLUDE_DIRS "@CONF_INCLUDE_DIRS@")
+
+# Our library dependencies (contains definitions for IMPORTED targets)
+if(NOT TARGET bclib AND NOT BCLib_BINARY_DIR)
+    include("${BCLIB_CMAKE_DIR}/BCLibTargets.cmake")
+endif()
+
+# These are IMPORTED targets created by BCLibTargets.cmake
+set(BCLIB_LIBRARIES bclib)

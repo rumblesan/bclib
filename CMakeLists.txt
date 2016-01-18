@@ -1,13 +1,13 @@
 # much of this pulled from the cmake wiki
 # https://cmake.org/Wiki/CMake/Tutorials/How_to_create_a_ProjectConfig.cmake_file
 cmake_minimum_required(VERSION 3.0)
-project(mylib C)
+project(bclib C)
 
-set(MYLIB_MAJOR_VERSION 0)
-set(MYLIB_MINOR_VERSION 1)
-set(MYLIB_PATCH_VERSION 0)
-set(MYLIB_VERSION
-    ${MYLIB_MAJOR_VERSION}.${MYLIB_MINOR_VERSION}.${MYLIB_PATCH_VERSION})
+set(BCLIB_MAJOR_VERSION 0)
+set(BCLIB_MINOR_VERSION 1)
+set(BCLIB_PATCH_VERSION 0)
+set(BCLIB_VERSION
+    ${BCLIB_MAJOR_VERSION}.${BCLIB_MINOR_VERSION}.${BCLIB_PATCH_VERSION})
 
 # Offer the user the choice of overriding the installation directories
 set(INSTALL_LIB_DIR lib
@@ -20,7 +20,7 @@ set(INSTALL_INCLUDE_DIR
 if(WIN32 AND NOT CYGWIN)
     set(DEF_INSTALL_CMAKE_DIR cmake)
 else()
-    set(DEF_INSTALL_CMAKE_DIR lib/cmake/MyLib)
+    set(DEF_INSTALL_CMAKE_DIR lib/cmake/BCLib)
 endif()
 set(INSTALL_CMAKE_DIR
     ${DEF_INSTALL_CMAKE_DIR} CACHE PATH
@@ -40,35 +40,35 @@ add_subdirectory(lib)
 
 
 # Add all targets to the build-tree export set
-export(TARGETS mylib
-    FILE "${PROJECT_BINARY_DIR}/MyLibTargets.cmake")
+export(TARGETS bclib
+    FILE "${PROJECT_BINARY_DIR}/BCLibTargets.cmake")
 
 # Export the package for use from the build-tree
 # (this registers the build-tree with a global CMake-registry)
-export(PACKAGE MyLib)
+export(PACKAGE BCLib)
 
-# Create the MyLibConfig.cmake and MyLibConfigVersion files
+# Create the BCLibConfig.cmake and BCLibConfigVersion files
 file(RELATIVE_PATH REL_INCLUDE_DIR "${INSTALL_CMAKE_DIR}"
     "${INSTALL_INCLUDE_DIR}")
 # ... for the build tree
 set(CONF_INCLUDE_DIRS "${PROJECT_SOURCE_DIR}" "${PROJECT_BINARY_DIR}")
-configure_file(MyLibConfig.cmake.in
-    "${PROJECT_BINARY_DIR}/MyLibConfig.cmake" @ONLY)
+configure_file(BCLibConfig.cmake.in
+    "${PROJECT_BINARY_DIR}/BCLibConfig.cmake" @ONLY)
 # ... for the install tree
 set(CONF_INCLUDE_DIRS "\${INSTALL_CMAKE_DIR}/${REL_INCLUDE_DIR}")
-configure_file(MyLibConfig.cmake.in
-    "${PROJECT_BINARY_DIR}${CMAKE_FILES_DIRECTORY}/MyLibConfig.cmake" @ONLY)
+configure_file(BCLibConfig.cmake.in
+    "${PROJECT_BINARY_DIR}${CMAKE_FILES_DIRECTORY}/BCLibConfig.cmake" @ONLY)
 # ... for both
-configure_file(MyLibConfigVersion.cmake.in
-    "${PROJECT_BINARY_DIR}/MyLibConfigVersion.cmake" @ONLY)
+configure_file(BCLibConfigVersion.cmake.in
+    "${PROJECT_BINARY_DIR}/BCLibConfigVersion.cmake" @ONLY)
 
-# Install the MyLibConfig.cmake and MyLibConfigVersion.cmake
+# Install the BCLibConfig.cmake and BCLibConfigVersion.cmake
 install(FILES
-    "${PROJECT_BINARY_DIR}${CMAKE_FILES_DIRECTORY}/MyLibConfig.cmake"
-    "${PROJECT_BINARY_DIR}/MyLibConfigVersion.cmake"
+    "${PROJECT_BINARY_DIR}${CMAKE_FILES_DIRECTORY}/BCLibConfig.cmake"
+    "${PROJECT_BINARY_DIR}/BCLibConfigVersion.cmake"
     DESTINATION "${INSTALL_CMAKE_DIR}" COMPONENT dev)
 
 # Install the export set for use with the install-tree
-install(EXPORT MyLibTargets DESTINATION
+install(EXPORT BCLibTargets DESTINATION
     "${INSTALL_CMAKE_DIR}" COMPONENT dev)
 

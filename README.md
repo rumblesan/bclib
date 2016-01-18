@@ -1,4 +1,4 @@
-# MyLib
+# BCLib
 
 A library of general purpose C stuff
 

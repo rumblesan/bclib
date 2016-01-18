@@ -4,16 +4,16 @@ include_directories(include)
 file(GLOB_RECURSE SOURCES "src/*.c")
 file(GLOB_RECURSE HEADERS "include/*.h")
 
-add_library(mylib STATIC ${SOURCES})
+add_library(bclib STATIC ${SOURCES})
 
-set_target_properties(mylib PROPERTIES
+set_target_properties(bclib PROPERTIES
     PUBLIC_HEADER "${HEADERS}")
 
-install(TARGETS mylib
+install(TARGETS bclib
     DESTINATION lib
-    EXPORT MyLibTargets
+    EXPORT BCLibTargets
     LIBRARY DESTINATION "${INSTALL_LIB_DIR}" COMPONENT shlib
-    PUBLIC_HEADER DESTINATION "${INSTALL_INCLUDE_DIR}/mylib"
+    PUBLIC_HEADER DESTINATION "${INSTALL_INCLUDE_DIR}/bclib"
     COMPONENT dev
     )
 
