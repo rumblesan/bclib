@@ -1,4 +1,4 @@
-#include "testing/minunit.h"
+#include "minunit.h"
 #include "list.h"
 
 char *test_list_empty() {

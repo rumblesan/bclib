@@ -1,3 +1,4 @@
+include_directories(include)
 include_directories(../lib/include)
 
 file(GLOB_RECURSE TEST_SOURCES "src/*.c")

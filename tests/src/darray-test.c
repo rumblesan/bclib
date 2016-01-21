@@ -1,4 +1,4 @@
-#include "testing/minunit.h"
+#include "minunit.h"
 #include "darray.h"
 
 static DArray *array = NULL;
