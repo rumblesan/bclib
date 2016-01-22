@@ -1,8 +1,21 @@
 
 include_directories(include)
 
-file(GLOB_RECURSE SOURCES "src/*.c")
-file(GLOB_RECURSE HEADERS "include/*.h")
+set(SOURCES
+    "src/bstrlib.c"
+    "src/darray.c"
+    "src/hashmap.c"
+    "src/list.c"
+    "src/simple_list.c"
+    )
+set(HEADERS
+    "include/bstrlib.h"
+    "include/darray.h"
+    "include/dbg.h"
+    "include/hashmap.h"
+    "include/list.h"
+    "include/simple_list.h"
+    )
 
 add_library(bclib STATIC ${SOURCES})
 

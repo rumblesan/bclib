@@ -1,7 +1,13 @@
 include_directories(include)
 include_directories(../lib/include)
 
-file(GLOB_RECURSE TEST_SOURCES "src/*.c")
+set(TEST_SOURCES
+    "src/bstrlib-test.c"
+    "src/darray-test.c"
+    "src/hashmap-test.c"
+    "src/list-test.c"
+    "src/simple_list-test.c"
+    )
 
 foreach(TEST_FILE ${TEST_SOURCES})
     get_filename_component(TEST_NAME ${TEST_FILE} NAME_WE)
