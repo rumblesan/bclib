@@ -21,13 +21,14 @@ typedef struct List {
 
 } List;
 
-List *list_empty();
+List *list_create();
 void list_destroy(List *list);
+void list_clear(List *list);
+void list_clear_destroy(List *list);
 
-int list_length(List *list);
-
-void *list_first(List *list);
-void *list_last(List *list);
+#define list_count(A) ((A)->length)
+#define list_first(A) ((A)->first != NULL ? (A)->first->value : NULL)
+#define list_last(A) ((A)->first != NULL ? (A)->last->value : NULL)
 
 List *list_push(List *list, void *value);
 void *list_pop(List *list);

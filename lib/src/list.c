@@ -4,7 +4,7 @@
 #include "list.h"
 #include "dbg.h"
 
-List *list_empty() {
+List *list_create() {
     return calloc(1, sizeof(List));
 }
 
@@ -20,15 +20,15 @@ void list_destroy(List *list) {
     free(list);
 }
 
-int list_length(List *list) {
-    return list->length;
+void list_clear(List *list) {
+    LIST_FOREACH(list, first, next, cur) {
+        free(cur->value);
+    }
 }
 
-void *list_first(List *list) {
-    return list->first->value;
-}
-void *list_last(List *list) {
-    return list->last->value;
+void list_clear_destroy(List *list) {
+    list_clear(list);
+    list_destroy(list);
 }
 
 List *list_push(List *list, void *value) {
