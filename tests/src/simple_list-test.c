@@ -1,9 +1,9 @@
 #include "minunit.h"
-#include "list.h"
+#include "simple_list.h"
 
-char *test_list_empty() {
-    List l = list_empty();
-    int len = list_length(l);
+char *test_simple_list_empty() {
+    SimpleList l = simple_list_empty();
+    int len = simple_list_length(l);
     mu_assert(len == 0, "List length should be zero");
     return NULL;
 }
@@ -11,7 +11,7 @@ char *test_list_empty() {
 char *all_tests() {
     mu_suite_start();
 
-    mu_run_test(test_list_empty);
+    mu_run_test(test_simple_list_empty);
 
     return NULL;
 }
