@@ -1,15 +1,15 @@
 #include <stdlib.h>
 #include <stdbool.h>
 
-#include "dl_list.h"
+#include "list.h"
 #include "dbg.h"
 
-DLList *dl_list_empty() {
-    return calloc(1, sizeof(DLList));
+List *list_empty() {
+    return calloc(1, sizeof(List));
 }
 
-void dl_list_destroy(DLList *list) {
-    DL_LIST_FOREACH(list, first, next, cur) {
+void list_destroy(List *list) {
+    LIST_FOREACH(list, first, next, cur) {
         if (cur->prev) {
             free(cur->prev);
         }
@@ -20,19 +20,19 @@ void dl_list_destroy(DLList *list) {
     free(list);
 }
 
-int dl_list_length(DLList *list) {
+int list_length(List *list) {
     return list->length;
 }
 
-void *dl_list_first(DLList *list) {
+void *list_first(List *list) {
     return list->first->value;
 }
-void *dl_list_last(DLList *list) {
+void *list_last(List *list) {
     return list->last->value;
 }
 
-DLList *dl_list_push(DLList *list, void *value) {
-    DLListNode *node = calloc(1, sizeof(DLListNode));
+List *list_push(List *list, void *value) {
+    ListNode *node = calloc(1, sizeof(ListNode));
     check_mem(node);
     node->value = value;
 
@@ -51,13 +51,13 @@ DLList *dl_list_push(DLList *list, void *value) {
 error:
     return NULL;
 }
-void *dl_list_pop(DLList *list) {
-    DLListNode *node = list->last;
-    return node != NULL ? dl_list_remove(list, node) : NULL;
+void *list_pop(List *list) {
+    ListNode *node = list->last;
+    return node != NULL ? list_remove(list, node) : NULL;
 }
 
-DLList *dl_list_unshift(DLList *list, void *value) {
-    DLListNode *node = calloc(1, sizeof(DLListNode));
+List *list_unshift(List *list, void *value) {
+    ListNode *node = calloc(1, sizeof(ListNode));
     check_mem(node);
     node->value = value;
 
@@ -77,12 +77,12 @@ error:
     return NULL;
 }
 
-void *dl_list_shift(DLList *list) {
-    DLListNode *node = list->first;
-    return node != NULL ? dl_list_remove(list, node) : NULL;
+void *list_shift(List *list) {
+    ListNode *node = list->first;
+    return node != NULL ? list_remove(list, node) : NULL;
 }
 
-void *dl_list_remove(DLList *list, DLListNode *node) {
+void *list_remove(List *list, ListNode *node) {
 
     void *result = NULL;
 
@@ -101,8 +101,8 @@ void *dl_list_remove(DLList *list, DLListNode *node) {
         check(list->last != NULL, "Invalid list, somehow got a last that is NULL.");
         list->last->next = NULL;
     } else {
-        DLListNode *after = node->next;
-        DLListNode *before = node->prev;
+        ListNode *after = node->next;
+        ListNode *before = node->prev;
         after->prev = before;
         before->next = after;
     }
