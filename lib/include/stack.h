@@ -1,5 +1,5 @@
-#ifndef __BCLIB_LIST_H__
-#define __BCLIB_LIST_H__
+#ifndef __BCLIB_STACK_H__
+#define __BCLIB_STACK_H__
 
 struct StackNode;
 
