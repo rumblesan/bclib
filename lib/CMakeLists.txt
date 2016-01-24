@@ -7,6 +7,7 @@ set(SOURCES
     "src/hashmap.c"
     "src/list.c"
     "src/simple_list.c"
+    "src/stack.c"
     )
 set(HEADERS
     "include/bstrlib.h"
@@ -15,6 +16,7 @@ set(HEADERS
     "include/hashmap.h"
     "include/list.h"
     "include/simple_list.h"
+    "include/stack.h"
     )
 
 add_library(bclib STATIC ${SOURCES})
