@@ -1,9 +1,9 @@
 #include <assert.h>
-#include <bstrlib.h>
 
 #include "minunit.h"
 #include "dbg.h"
 #include "hashmap.h"
+#include "bstrlib.h"
 
 Hashmap *map = NULL;
 static int traverse_called = 0;
