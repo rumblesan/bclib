@@ -18,6 +18,30 @@ char *test_destroy() {
     return NULL;
 }
 
+char *test_get() {
+    List *get_list = list_create();
+
+    list_push(get_list, test1);
+    mu_assert(list_last(get_list) == test1, "wrong last value");
+
+    list_push(get_list, test2);
+    mu_assert(list_last(get_list) == test2, "wrong last value");
+
+    list_push(get_list, test3);
+    mu_assert(list_last(get_list) == test3, "wrong last value");
+    mu_assert(list_count(get_list) == 3, "wrong count on push");
+
+    mu_assert(list_get(get_list, 0) == test1, "wrong value in position 0");
+    mu_assert(list_get(get_list, 1) == test2, "wrong value in position 0");
+    mu_assert(list_get(get_list, 2) == test3, "wrong value in position 0");
+
+    mu_assert(list_get(get_list, 4) == NULL, "wrong behaviour with too large get index");
+
+    list_destroy(get_list);
+
+    return NULL;
+}
+
 char *test_push_pop() {
     list_push(list, test1);
     mu_assert(list_last(list) == test1, "wrong last value");
@@ -86,6 +110,7 @@ char *all_tests() {
     mu_suite_start();
 
     mu_run_test(test_create);
+    mu_run_test(test_get);
     mu_run_test(test_push_pop);
     mu_run_test(test_unshift);
     mu_run_test(test_remove);

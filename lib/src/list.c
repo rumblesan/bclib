@@ -31,6 +31,22 @@ void list_clear_destroy(List *list) {
     list_destroy(list);
 }
 
+void *list_get(List *list, int el_num) {
+    if (el_num >= list_count(list)) return NULL;
+
+    ListNode *el = NULL;
+    int i = 0;
+    LIST_FOREACH(list, first, next, cur) {
+        if (i == el_num) {
+            el = cur;
+            break;
+        } else {
+            i += 1;
+        }
+    }
+    return el != NULL ? el->value : NULL;
+}
+
 List *list_push(List *list, void *value) {
     ListNode *node = calloc(1, sizeof(ListNode));
     check_mem(node);
