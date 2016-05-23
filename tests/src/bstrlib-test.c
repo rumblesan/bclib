@@ -235,6 +235,25 @@ char *test_bsplit() {
     return NULL;
 }
 
+char *test_bmidstr() {
+    bstring b1 = bfromcstr("foobarbaz");
+    mu_assert(b1 != NULL, "bfromcstr failed");
+
+    bstring ex = bfromcstr("bar");
+    mu_assert(ex != NULL, "bfromcstr failed");
+
+    bstring sub = bmidstr(b1, 3, 3);
+
+    int cmp = bstricmp(sub, ex);
+    mu_assert(cmp == 0, "bstrings are the same");
+
+    bdestroy(b1);
+    bdestroy(ex);
+    bdestroy(sub);
+
+    return NULL;
+}
+
 char *test_bformat() {
     bstring b1 = bformat("%d %s", 3, "foo");
     mu_assert(b1 != NULL, "bfromcstr failed");
@@ -299,6 +318,7 @@ char *all_tests() {
     mu_run_test(test_binstr);
     mu_run_test(test_bfindreplace);
     mu_run_test(test_bsplit);
+    mu_run_test(test_bmidstr);
     mu_run_test(test_bformat);
     mu_run_test(test_blength);
     mu_run_test(test_bdata);
