@@ -1,6 +1,8 @@
 #ifndef __BCLIB_HASHMAP_H__
 #define __BCLIB_HASHMAP_H__
 
+#include <stdint.h>
+
 #include "bstrlib.h"
 #include "dbg.h"
 #include "darray.h"
