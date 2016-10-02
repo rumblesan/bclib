@@ -12,6 +12,7 @@ set(SOURCES
 set(HEADERS
     "include/bstrlib.h"
     "include/darray.h"
+    "include/dbg.h"
     "include/hashmap.h"
     "include/list.h"
     "include/simple_list.h"
