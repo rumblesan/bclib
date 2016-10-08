@@ -7,6 +7,7 @@ set(TEST_SOURCES
     "src/hashmap-test.c"
     "src/list-test.c"
     "src/simple_list-test.c"
+    "src/ringbuffer-test.c"
     "src/stack-test.c"
     )
 

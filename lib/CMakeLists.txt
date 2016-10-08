@@ -6,6 +6,7 @@ set(SOURCES
     "src/darray.c"
     "src/hashmap.c"
     "src/list.c"
+    "src/ringbuffer.c"
     "src/simple_list.c"
     "src/stack.c"
     )
@@ -15,6 +16,7 @@ set(HEADERS
     "include/dbg.h"
     "include/hashmap.h"
     "include/list.h"
+    "include/ringbuffer.h"
     "include/simple_list.h"
     "include/stack.h"
     )
