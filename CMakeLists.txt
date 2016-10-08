@@ -34,7 +34,7 @@ foreach(p LIB BIN INCLUDE CMAKE)
     endif()
 endforeach()
 
-set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -Wall")
+set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -Wall -std=c99")
 
 add_subdirectory(lib)
 
