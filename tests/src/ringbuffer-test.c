@@ -1,3 +1,6 @@
+#include <pthread.h>
+#include <unistd.h>
+
 #include "minunit.h"
 #include "ringbuffer.h"
 
@@ -92,12 +95,75 @@ char *test_ringbuffer_full() {
   return NULL;
 }
 
+void *relay_thread(void *_rbuffer) {
+
+  RingBuffer *rbuffer = _rbuffer;
+  int *vout = NULL;
+  while (1) {
+    usleep(1000);
+
+    vout = rb_pop(rbuffer);
+    if (vout == NULL) continue;
+
+    if (*vout == -2) {
+      printf("Received kill signal\n");
+      free(vout);
+      break;
+    } else {
+      printf("Received %d\n", *vout);
+    }
+  }
+
+  pthread_exit(NULL);
+}
+
+char *test_ringbuffer_threads() {
+
+  RingBuffer *rb  = rb_create(20);
+
+  pthread_t thread;
+  printf("In main: creating relay thread\n");
+  int rc = pthread_create(&thread, NULL, &relay_thread, rb);
+  if (rc) {
+    printf("ERROR; return code from pthread_create() is %d\n", rc);
+    exit(-1);
+  }
+
+  int msgs = 10;
+  int *values1 = malloc(msgs * sizeof(int));
+  for (int m = 0; m < msgs; m++) {
+    values1[m] = m;
+    rb_push(rb, &(values1[m]));
+  }
+
+  sleep(1);
+
+  int *values2 = malloc(msgs * sizeof(int));
+  for (int m = 0; m < msgs; m++) {
+    values2[m] = m;
+    rb_push(rb, &(values2[m]));
+  }
+
+  int *kill = malloc(sizeof(int));
+  *kill = -2;
+  rb_push(rb, kill);
+
+  sleep(1);
+
+  pthread_exit(NULL);
+
+  free(values1);
+  free(values2);
+  return NULL;
+}
+
 char *all_tests() {
     mu_suite_start();
 
     mu_run_test(test_ringbuffer_create);
     mu_run_test(test_ringbuffer_push_pop);
     mu_run_test(test_ringbuffer_full);
+    mu_run_test(test_ringbuffer_threads);
 
     return NULL;
 }
