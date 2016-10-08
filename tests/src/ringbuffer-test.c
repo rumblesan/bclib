@@ -121,11 +121,19 @@ char *test_ringbuffer_threads() {
 
   RingBuffer *rb  = rb_create(20);
 
-  pthread_t thread;
+  pthread_t thread1;
   printf("In main: creating relay thread\n");
-  int rc = pthread_create(&thread, NULL, &relay_thread, rb);
-  if (rc) {
-    printf("ERROR; return code from pthread_create() is %d\n", rc);
+  int rc1 = pthread_create(&thread1, NULL, &relay_thread, rb);
+  if (rc1) {
+    printf("ERROR; return code from pthread_create() is %d\n", rc1);
+    exit(-1);
+  }
+
+  pthread_t thread2;
+  printf("In main: creating relay thread\n");
+  int rc2 = pthread_create(&thread2, NULL, &relay_thread, rb);
+  if (rc2) {
+    printf("ERROR; return code from pthread_create() is %d\n", rc2);
     exit(-1);
   }
 
@@ -144,9 +152,13 @@ char *test_ringbuffer_threads() {
     rb_push(rb, &(values2[m]));
   }
 
-  int *kill = malloc(sizeof(int));
-  *kill = -2;
-  rb_push(rb, kill);
+  int *kill1 = malloc(sizeof(int));
+  *kill1 = -2;
+  rb_push(rb, kill1);
+
+  int *kill2 = malloc(sizeof(int));
+  *kill2 = -2;
+  rb_push(rb, kill2);
 
   sleep(1);
 
