@@ -1,5 +1,6 @@
 #include <pthread.h>
 #include <unistd.h>
+#include <stdbool.h>
 
 #include "minunit.h"
 #include "ringbuffer.h"
@@ -47,6 +48,8 @@ char *test_ringbuffer_full() {
   *vin4 = 4;
 
   RingBuffer *rb = rb_create(size);
+  mu_assert(rb_empty(rb) == true, "Buffer should be empty");
+  mu_assert(rb_full(rb) == false, "Buffer should not be full");
   int pos;
   pos = rb_push(rb, vin1);
   mu_assert(rb->tail == 1, "Tail should have moved to 1");
