@@ -35,11 +35,12 @@ int next_tail(RingBuffer *rbuffer) {
 }
 
 int rb_full(RingBuffer *rbuffer) {
-  return (next_tail(rbuffer) == rbuffer->head);
+  int next = next_tail(rbuffer);
+  return __sync_bool_compare_and_swap(&(rbuffer->head), next, next);
 }
 
 int rb_empty(RingBuffer *rbuffer) {
-  return (rbuffer->head == rbuffer->tail);
+  return __sync_bool_compare_and_swap(&(rbuffer->head), rbuffer->tail, rbuffer->tail);
 }
 
 int rb_push(RingBuffer *rbuffer, void *value) {
