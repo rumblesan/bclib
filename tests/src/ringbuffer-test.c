@@ -1,5 +1,6 @@
 #include <pthread.h>
 #include <unistd.h>
+#include <time.h>
 #include <stdbool.h>
 
 #include "minunit.h"
@@ -102,8 +103,11 @@ void *relay_thread(void *_rbuffer) {
 
   RingBuffer *rbuffer = _rbuffer;
   int *vout = NULL;
+  struct timespec tim, tim2;
+  tim.tv_sec = 0;
+  tim.tv_nsec = 1000000;
   while (1) {
-    usleep(1000);
+    nanosleep(&tim, &tim2);
 
     vout = rb_pop(rbuffer);
     if (vout == NULL) continue;
