@@ -1,36 +1,32 @@
 
-include_directories(include)
 
 set(SOURCES
-    "src/bstrlib.c"
-    "src/darray.c"
-    "src/hashmap.c"
-    "src/list.c"
-    "src/ringbuffer.c"
-    "src/simple_list.c"
-    "src/stack.c"
-    )
+  "src/bstrlib.c"
+  "src/darray.c"
+  "src/hashmap.c"
+  "src/list.c"
+  "src/ringbuffer.c"
+  "src/simple_list.c"
+  "src/stack.c"
+  )
 set(HEADERS
-    "include/bstrlib.h"
-    "include/darray.h"
-    "include/dbg.h"
-    "include/hashmap.h"
-    "include/list.h"
-    "include/ringbuffer.h"
-    "include/simple_list.h"
-    "include/stack.h"
-    )
+  "include/bstrlib.h"
+  "include/darray.h"
+  "include/dbg.h"
+  "include/hashmap.h"
+  "include/list.h"
+  "include/ringbuffer.h"
+  "include/simple_list.h"
+  "include/stack.h"
+  )
 
-add_library(bclib STATIC ${SOURCES})
+add_library(bclib ${HEADERS} ${SOURCES})
 
-set_target_properties(bclib PROPERTIES
-    PUBLIC_HEADER "${HEADERS}")
+target_include_directories(bclib
+  PUBLIC include
+  PRIVATE src)
 
-install(TARGETS bclib
-    DESTINATION lib
-    EXPORT BCLibTargets
-    LIBRARY DESTINATION "${INSTALL_LIB_DIR}" COMPONENT shlib
-    PUBLIC_HEADER DESTINATION "${INSTALL_INCLUDE_DIR}/bclib"
-    COMPONENT dev
-    )
-
+install(TARGETS bclib EXPORT BCLibTargets
+  ARCHIVE DESTINATION lib
+  LIBRARY DESTINATION lib)
+install(DIRECTORY include/ DESTINATION include/bclib)
