@@ -26,6 +26,13 @@ Everything should be setup to 'just work', with CMake handling installing the li
 make install
 ```
 
+## Docker
+
+The docker image is to test building and installing on linux.
+
+``` bash
+docker build . -t bclib
+```
 
 ## Contact
 
