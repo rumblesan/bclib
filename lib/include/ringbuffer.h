@@ -16,6 +16,8 @@ RingBuffer *rb_create(int size);
 
 int rb_push(RingBuffer *rbuffer, void *value);
 
+int rb_size(RingBuffer *rbuffer);
+
 void *rb_pop(RingBuffer *rbuffer);
 
 void rb_destroy(RingBuffer *rbuffer);

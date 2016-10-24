@@ -51,6 +51,7 @@ char *test_ringbuffer_full() {
   RingBuffer *rb = rb_create(size);
   mu_assert(rb_empty(rb) == true, "Buffer should be empty");
   mu_assert(rb_full(rb) == false, "Buffer should not be full");
+  mu_assert(rb_size(rb) == 0, "Should have size of 0");
   int pos;
   pos = rb_push(rb, vin1);
   mu_assert(rb->tail == 1, "Tail should have moved to 1");
@@ -59,11 +60,12 @@ char *test_ringbuffer_full() {
   pos = rb_push(rb, vin2);
   mu_assert(rb->tail == 2, "Tail should have moved to 2");
   mu_assert(pos == 1, "Should have pushed value to pos 1");
+  mu_assert(rb_size(rb) == 2, "Should have size of 2");
 
   pos = rb_push(rb, vin3);
-  log_info("tail is %d", rb->tail);
   mu_assert(rb->tail == 3, "Tail should have moved to 3");
   mu_assert(pos == 2, "Should have pushed value to pos 2");
+  mu_assert(rb_size(rb) == 3, "Should have size of 3");
 
   pos = rb_push(rb, vin4);
   mu_assert(rb->tail == 3, "Tail should not have moved");
@@ -81,14 +83,21 @@ char *test_ringbuffer_full() {
   mu_assert(rb->head == 2, "Head should have moved to 2");
   rb_pop(rb);
   mu_assert(rb->head == 3, "Head should have moved to 3");
+  mu_assert(rb_size(rb) == 1, "Should have size of 1");
   rb_pop(rb);
   mu_assert(rb->head == 0, "Head should have moved to 0");
 
   mu_assert(rb_empty(rb) == 1, "Should be empty");
+  mu_assert(rb_size(rb) == 0, "Should have size of 0");
 
   int *empty = rb_pop(rb);
   mu_assert(rb->head == 0, "Head should not have moved");
   mu_assert(empty == NULL, "Value is NULL");
+  mu_assert(rb_size(rb) == 0, "Should have size of 0");
+  pos = rb_push(rb, vin3);
+  mu_assert(rb_size(rb) == 1, "Should have size of 1");
+  rb_pop(rb);
+  mu_assert(rb_size(rb) == 0, "Should have size of 0");
 
   rb_destroy(rb);
   free(vin1);

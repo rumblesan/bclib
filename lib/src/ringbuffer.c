@@ -43,6 +43,12 @@ int rb_empty(RingBuffer *rbuffer) {
   return __sync_bool_compare_and_swap(&(rbuffer->head), rbuffer->tail, rbuffer->tail);
 }
 
+int rb_size(RingBuffer *rbuffer) {
+  int h = rbuffer->head;
+  int t = rbuffer->tail;
+  return (t >= h) ? t - h : rbuffer->size - (h + t) + 1;
+}
+
 int rb_push(RingBuffer *rbuffer, void *value) {
   while (1) {
     if (rb_full(rbuffer)) return -1;
