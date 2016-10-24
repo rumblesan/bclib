@@ -46,7 +46,7 @@ int rb_empty(RingBuffer *rbuffer) {
 int rb_size(RingBuffer *rbuffer) {
   int h = rbuffer->head;
   int t = rbuffer->tail;
-  return (t >= h) ? t - h : rbuffer->size - (h + t) + 1;
+  return (t >= h) ? t - h : (rbuffer->size - h) + t + 1;
 }
 
 int rb_push(RingBuffer *rbuffer, void *value) {
