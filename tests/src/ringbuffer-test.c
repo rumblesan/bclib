@@ -127,6 +127,7 @@ void *relay_thread(void *_rbuffer) {
       break;
     } else {
       printf("Received %d\n", *vout);
+      free(vout);
     }
   }
 
@@ -154,18 +155,21 @@ char *test_ringbuffer_threads() {
   }
 
   int msgs = 10;
-  int *values1 = malloc(msgs * sizeof(int));
+
+  int *val1 = NULL;
   for (int m = 0; m < msgs; m++) {
-    values1[m] = m;
-    rb_push(rb, &(values1[m]));
+    val1 = malloc(sizeof(int));
+    *val1 = m;
+    rb_push(rb, val1);
   }
 
   sleep(1);
 
-  int *values2 = malloc(msgs * sizeof(int));
+  int *val2 = NULL;
   for (int m = 0; m < msgs; m++) {
-    values2[m] = m;
-    rb_push(rb, &(values2[m]));
+    val2 = malloc(sizeof(int));
+    *val2 = m;
+    rb_push(rb, val2);
   }
 
   int *kill1 = malloc(sizeof(int));
@@ -180,8 +184,7 @@ char *test_ringbuffer_threads() {
 
   pthread_exit(NULL);
 
-  free(values1);
-  free(values2);
+  rb_destroy(rb);
   return NULL;
 }
 
