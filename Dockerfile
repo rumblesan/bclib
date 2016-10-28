@@ -3,7 +3,7 @@ FROM debian:8.6
 MAINTAINER Guy John <guy@rumblesan.com>
 
 RUN apt-get update
-RUN apt-get install -y clang cmake make
+RUN apt-get install -y clang cmake make valgrind
 
 ENV CC /usr/bin/clang
 
