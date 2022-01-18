@@ -557,7 +557,7 @@ size_t len;
 
 	a->slen = i;
 	len = strlen (str + i);
-	if (len + 1 > INT_MAX - i ||
+	if (len + 1 > (size_t) INT_MAX - i ||
 	    0 > balloc (a, (int) (i + len + 1))) return BSTR_ERR;
 	bBlockCopy (a->data + i, str + i, (size_t) len + 1);
 	a->slen += (int) len;
@@ -739,24 +739,8 @@ int i;
  *  termination characters are not treated in any special way.
  */
 int biseqcaseless (const_bstring b0, const_bstring b1) {
-#if 0
-int i, n;
-
-	if (bdata (b0) == NULL || b0->slen < 0 ||
-	    bdata (b1) == NULL || b1->slen < 0) return BSTR_ERR;
-	if (b0->slen != b1->slen) return BSTR_OK;
-	if (b0->data == b1->data || b0->slen == 0) return 1;
-	for (i=0, n=b0->slen; i < n; i++) {
-		if (b0->data[i] != b1->data[i]) {
-			unsigned char c = (unsigned char) downcase (b0->data[i]);
-			if (c != (unsigned char) downcase (b1->data[i])) return 0;
-		}
-	}
-	return 1;
-#else
 	if (NULL == b1) return BSTR_ERR;
 	return biseqcaselessblk (b0, b1->data, b1->slen);
-#endif
 }
 
 /*  int bisstemeqcaselessblk (const_bstring b0, const void * blk, int len)
@@ -2929,7 +2913,7 @@ struct genBstrList g;
 #define START_VSNBUFF (256)
 #else
 
-#if defined(__GNUC__) && !defined(__APPLE__)
+#if defined(__GNUC__)
 /* Something is making gcc complain about this prototype not being here, so
    I've just gone ahead and put it in. */
 extern int vsnprintf (char *buf, size_t count, const char *format, va_list arg);

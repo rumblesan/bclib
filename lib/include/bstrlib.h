@@ -36,6 +36,11 @@ extern "C" {
 typedef struct tagbstring * bstring;
 typedef const struct tagbstring * const_bstring;
 
+/* Version */
+#define BSTR_VER_MAJOR  1
+#define BSTR_VER_MINOR  0
+#define BSTR_VER_UPDATE 0
+
 /* Copy functions */
 #define cstr2bstr bfromcstr
 extern bstring bfromcstr (const char * str);
@@ -183,9 +188,9 @@ extern int bsreadlnsa (bstring r, struct bStream * s, const_bstring term);
 extern int bsreada (bstring b, struct bStream * s, int n);
 extern int bsunread (struct bStream * s, const_bstring b);
 extern int bspeek (bstring r, const struct bStream * s);
-extern int bssplitscb (struct bStream * s, const_bstring splitStr, 
+extern int bssplitscb (struct bStream * s, const_bstring splitStr,
 	int (* cb) (void * parm, int ofs, const_bstring entry), void * parm);
-extern int bssplitstrcb (struct bStream * s, const_bstring splitStr, 
+extern int bssplitstrcb (struct bStream * s, const_bstring splitStr,
 	int (* cb) (void * parm, int ofs, const_bstring entry), void * parm);
 extern int bseof (const struct bStream * s);
 
